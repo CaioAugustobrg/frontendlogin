@@ -9,25 +9,27 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', sans-serif;
   }`;
 
-  
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const onSubmit = (e) => {
-   try {
-      fetch(`http://localhost:3030/login`, {
-         method: 'POST',
-         body: JSON.stringify({ email, password}),
-      })
-   } catch (error) {
-      console.log(error)
-   }
+  const [loginForm ,setLoginForm] = useState({
+    email: '',
+    password: ''
+  })
   
-
-
-   e.preventDefault()
+ const onSubmit = async (e) => {
+  e.preventDefault()
+  try {
+    await fetch('http://localhost:3030/login', {
+      method: 'POST',
+      body: JSON.stringify(email, password),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (error) {
+    erro: true,
+    console.log(error)
   }
-
+ }
   return (
     <>
       <GlobalStyle />
@@ -41,8 +43,8 @@ function Login() {
           </Title>
         </Topo>
         <main>
-          <Form>
-            <form onSubmit={onSubmit}>
+            <Form>
+            <form onSubmit={onSubmit} method="POST" action="/login">
               <label>Write your best email</label>
               <input
                 type="email"
@@ -50,6 +52,7 @@ function Login() {
                 required
                 placeholder="johnnysilverhand@email.com"
                 onChange={(e) => setEmail(e.target.value)}
+                value={loginForm.email}
               ></input>
 
               <label>Write your password</label>
@@ -59,11 +62,12 @@ function Login() {
                 required
                 placeholder="********"
                 onChange={(e) => setPassword(e.target.value)}
+                value={loginForm.password}
               ></input>
-              <Button>ENTER!</Button>
+              <Button><button type="submit">ENTER!</button></Button>
               <span>Do not have an account?</span>
             </form>
-          </Form>
+          </Form>  
         </main>
       </Container>
     </>
