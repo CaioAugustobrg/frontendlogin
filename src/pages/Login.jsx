@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Topo, Container, Title, Button, Form } from "../styles";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+import axios from "axios";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -10,21 +11,21 @@ const GlobalStyle = createGlobalStyle`
   }`;
 
 function Login() {
-  const [loginForm ,setLoginForm] = useState({
-    email: '',
-    password: ''
-  })
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   
  const onSubmit = async (e) => {
   e.preventDefault()
+  console.log(email, password)
+  
+
   try {
-    await fetch('http://localhost:3030/login', {
-      method: 'POST',
-      body: JSON.stringify(email, password),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    await axios.post('http://localhost:3030/login', 
+      JSON.stringify(email, password),
+      {
+        headers: { 'Content-Type': 'application/json'}
+      }  
+    )
   } catch (error) {
     erro: true,
     console.log(error)
@@ -44,7 +45,7 @@ function Login() {
         </Topo>
         <main>
             <Form>
-            <form onSubmit={onSubmit} method="POST" action="/login">
+            <form >
               <label>Write your best email</label>
               <input
                 type="email"
@@ -52,7 +53,7 @@ function Login() {
                 required
                 placeholder="johnnysilverhand@email.com"
                 onChange={(e) => setEmail(e.target.value)}
-                value={loginForm.email}
+                value={email}
               ></input>
 
               <label>Write your password</label>
@@ -62,9 +63,9 @@ function Login() {
                 required
                 placeholder="********"
                 onChange={(e) => setPassword(e.target.value)}
-                value={loginForm.password}
+                value={password}
               ></input>
-              <Button><button type="submit">ENTER!</button></Button>
+              <Button><button type="submit" onClick={(e) => onSubmit(e)}>ENTER!</button></Button>
               <span>Do not have an account?</span>
             </form>
           </Form>  
