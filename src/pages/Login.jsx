@@ -8,10 +8,25 @@ const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     font-family: 'Inter', sans-serif;
   }`;
+
+  
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(email)
+  const onSubmit = (e) => {
+   try {
+      fetch(`http://localhost:3030/login`, {
+         method: 'POST',
+         body: JSON.stringify({ email, password}),
+      })
+   } catch (error) {
+      console.log(error)
+   }
+  
+
+
+   e.preventDefault()
+  }
 
   return (
     <>
@@ -27,10 +42,11 @@ function Login() {
         </Topo>
         <main>
           <Form>
-            <form method="POST">
+            <form onSubmit={onSubmit}>
               <label>Write your best email</label>
               <input
                 type="email"
+                name="email"
                 required
                 placeholder="johnnysilverhand@email.com"
                 onChange={(e) => setEmail(e.target.value)}
@@ -39,6 +55,7 @@ function Login() {
               <label>Write your password</label>
               <input
                 type="password"
+                name="password"
                 required
                 placeholder="********"
                 onChange={(e) => setPassword(e.target.value)}
