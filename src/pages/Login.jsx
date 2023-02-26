@@ -21,7 +21,7 @@ function Login() {
 
   try {
     await axios.post('http://localhost:3030/login', 
-      JSON.stringify(email, password),
+      JSON.stringify({email, password}),
       {
         headers: { 'Content-Type': 'application/json'}
       }  
