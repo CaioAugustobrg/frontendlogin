@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -11,12 +12,16 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', sans-serif;
   }`;
 
-function Login() {
+
+
+const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	const onSubmit = async (e) => {
+	
 		e.preventDefault();
+		
 		console.log(email, password);
 
 		try {
@@ -27,6 +32,7 @@ function Login() {
 					headers: { 'Content-Type': 'application/json' },
 				}
 			);
+		
 		} catch (error) {
 			true,
 			console.log(error);
@@ -38,7 +44,7 @@ function Login() {
 			<Container>
 				<Topo>
 					<Title>
-            Welcome to ng.cash application
+						Welcome to ng.cash application
 						<span>
 							<p> a young way to take care of your cash!</p>
 						</span>
@@ -71,13 +77,13 @@ function Login() {
                   ENTER!
 								</button>
 							</Button>
-							<span>Do not have an account?</span>
+							<span><a href='/Register'>Do not have an account?</a></span>
 						</form>
 					</Form>
 				</main>
 			</Container>
 		</>
 	);
-}
+};
 
 export default Login;
