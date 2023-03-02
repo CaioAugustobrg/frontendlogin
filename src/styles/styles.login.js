@@ -5,18 +5,17 @@ export const Container = styled.div`
 
   flex-direction: row;
   background-color: #000;
-  z-index: 3;
 `;
 
 export const Topo = styled.div``;
 
-export const Form = styled.form`
+export const Form = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
-  z-index: 2;
+
   background-color: #6271;
   flex-direction: column;
 
-  
+ 
   form {
     flex-direction: column;
     display: flex;
@@ -29,6 +28,17 @@ export const Form = styled.form`
   }
 `;
 
+export const Title = styled.h1`
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+  font-size: 1.5em;
+  text-align: center;
+  color: #f3e600;
+
+  span {
+    font-family: "Inter", sans-serif;
+    color:  #9400d3;
+  }
+`;
 export const Label = styled.label`
     text-align: left;
     margin: 15px 0 0 0;
@@ -53,16 +63,4 @@ export const Button = styled.button`
   color: #9400d3;
   font-size: 25px;
   font-weight: bold;
-`;
-
-export const Title = styled.h1`
-  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
-  font-size: 1.5em;
-  text-align: center;
-  color: #9400d3;
-
-  span {
-    font-family: "Inter", sans-serif;
-    color: #f3e600;
-  }
 `;
