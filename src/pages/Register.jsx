@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Topo, Container, Title, Button, Form } from '../styles/styles.register';
+import { Topo, Container, Title, Button, Form, Label, Input } from '../styles/styles.register';
 
 const Register = () => {
 	const [username, setUsername] = useState('');
@@ -8,10 +8,8 @@ const Register = () => {
 	const [email, setEmail] = useState('');
 
 	const onSubmit = async (e) => {
-	
 		e.preventDefault();
-		
-		console.log(email, password);
+		console.log(email, password, email);
 
 		try {
 			await axios.post(
@@ -20,6 +18,7 @@ const Register = () => {
 				{
 					headers: { 'Content-Type': 'application/json' },
 				}
+				
 			);
 		
 		} catch (error) {
@@ -35,46 +34,44 @@ const Register = () => {
 					<Title>
 						Welcome to ng.cash application
 						<span>
-							<p> a young way to take care of your moeny!</p>
+							<p> a young way to take care of your money!</p>
 						</span>
 					</Title>
 				</Topo>
 				<main>
-					<Form>
-						<form>
-							<label>Write your username</label>
-							<input
+					<Form method='POST'>
+						<form method='POST' >
+							<Label>Write your username</Label>
+							<Input
 								type='text'
 								name='username'
 								required
 								placeholder='Johnny Silverhand'
 								onChange={(e) => setUsername(e.target.value)}
-							></input>
-							<label>Write your best email</label>
-							<input
+								value={username}
+							></Input>
+							<Label>Write your best email</Label>
+							<Input
 								type="email"
 								name="email"
 								required
 								placeholder="johnnysilverhand@email.com"
 								onChange={(e) => setEmail(e.target.value)}
 								value={email}
-							></input>
+							></Input>
 
-							<label>Write your password</label>
-							<input
+							<Label>Write your password</Label>
+							<Input
 								type="password"
 								name="password"
 								required
 								placeholder="********"
 								onChange={(e) => setPassword(e.target.value)}
 								value={password}
-							></input>
-							<Button>
-								<button type="submit" onClick={(e) => onSubmit(e)}>
-                  ENTER!
-								</button>
-							</Button>
-							<span><a href='/Register'>Do not have an account?</a></span>
+							></Input>
+							<Button type="submit" onClick={(e) => onSubmit(e)}>
+							REGISTER</Button>
+							
 						</form>
 					</Form>
 				</main>

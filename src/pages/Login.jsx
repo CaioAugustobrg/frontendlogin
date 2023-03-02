@@ -1,10 +1,9 @@
 import { React ,useState } from 'react';
-import { Topo, Container, Title, Button, Form } from '../styles';
+import { Topo, Container, Title, Button, Form, Input, Label } from '../styles/styles.login';
 import { createGlobalStyle } from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -46,36 +45,34 @@ const Login = () => {
 					<Title>
 						Welcome to ng.cash application
 						<span>
-							<p> a young way to take care of your cash!</p>
+							<p> a young way to take care of your money!</p>
 						</span>
 					</Title>
 				</Topo>
 				<main>
 					<Form>
 						<form>
-							<label>Write your best email</label>
-							<input
+							<Label>Write your best email</Label>
+							<Input
 								type="email"
 								name="email"
 								required
 								placeholder="johnnysilverhand@email.com"
 								onChange={(e) => setEmail(e.target.value)}
 								value={email}
-							></input>
+							></Input>
 
-							<label>Write your password</label>
-							<input
+							<Label>Write your password</Label>
+							<Input
 								type="password"
 								name="password"
 								required
 								placeholder="********"
 								onChange={(e) => setPassword(e.target.value)}
 								value={password}
-							></input>
-							<Button>
-								<button type="submit" onClick={(e) => onSubmit(e)}>
+							></Input>		
+							<Button type="submit" onClick={(e) => onSubmit(e)}>
                   ENTER!
-								</button>
 							</Button>
 							<span><a href='/Register'>Do not have an account?</a></span>
 						</form>
