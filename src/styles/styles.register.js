@@ -9,16 +9,13 @@ export const Container = styled.div`
 
 export const Topo = styled.div``;
 
-export const Form = styled.div`
+export const Form = styled.form`
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
   background-color: #6271;
   flex-direction: column;
 
-  label {
-    color: #04daf6;
-    font-family: "Inter", sans-serif;
-  }
+  
   form {
     flex-direction: column;
     display: flex;
@@ -31,7 +28,16 @@ export const Form = styled.div`
   }
 `;
 
+export const Label = styled.label`
+    text-align: left;
+    margin: 15px 0 0 0;
+    color: #04daf6;
+    font-family: "Inter", sans-serif;
+ 
+`;
+
 export const Button = styled.button`
+  margin-top: 15px;
   background-color: #554b41;
   color: #04daf6;
 `;
