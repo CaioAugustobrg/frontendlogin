@@ -1,5 +1,5 @@
 import { React ,useState } from 'react';
-import { Header, Container, Button, Form, Input, Label, Main, Footer } from '../styles/styles.login';
+import { Header, Container, Button, Input, Label, Main, Footer } from '../styles/styles.login';
 import { createGlobalStyle } from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
@@ -53,7 +53,7 @@ const Login = () => {
 				</Header>
 		
 				<Main>
-					<Form>	
+					<form method='POST'>	
 						<Label>Write your best email</Label>
 						<Input
 							type="email"
@@ -78,7 +78,7 @@ const Login = () => {
 						</Button>
 						<Footer>
 							<a href='/Register'>Do not have an account?</a></Footer>
-					</Form>
+					</form>
 				</Main>
 			</Container>
 		</>
