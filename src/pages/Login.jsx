@@ -1,5 +1,5 @@
 import { React ,useState } from 'react';
-import { Topo, Container, Title, Button, Form, Input, Label, Subtitle } from '../styles/styles.login';
+import { Header, Container, Button, Form, Input, Label, Main, Footer } from '../styles/styles.login';
 import { createGlobalStyle } from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
@@ -40,19 +40,19 @@ const Login = () => {
 			<GlobalStyle />
 			<Container>
 				
-				<Topo>
-					<Title>
-						<h1>Welcome to ng.cash application</h1>
-					</Title>
-					<Subtitle>
-						<span>
+				<Header>
+					
+					<h1>Welcome to ng.cash application</h1>
+				
+				
+					<span>
 								a young way to take care of your money!
-						</span>
-					</Subtitle>
-						
-				</Topo>
+					</span>
 		
-				<main>
+						
+				</Header>
+		
+				<Main>
 					<Form>	
 						<Label>Write your best email</Label>
 						<Input
@@ -76,9 +76,10 @@ const Login = () => {
 						<Button type="submit" onClick={(e) => onSubmit(e)}>
                   ENTER!
 						</Button>
-						<span><a href='/Register'>Do not have an account?</a></span>
+						<Footer>
+							<a href='/Register'>Do not have an account?</a></Footer>
 					</Form>
-				</main>
+				</Main>
 			</Container>
 		</>
 	);
