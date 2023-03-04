@@ -1,26 +1,32 @@
-import { React, useState } from 'react';
-import './App.css';
-import Login from './pages/Login';
+import { React } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import Register from './pages/Register';
 import Paths from './routes/routes';
 
 
-const GlobalStyle = createGlobalStyle`
-  
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+export const GlobalStyle = createGlobalStyle`
+  html,body {
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     font-family: 'Inter', sans-serif;
-  
+	
+    box-sizing: border-box;
+		flex-direction: column;
+    margin: 0;
+    padding: 0;
+		height: 100%;
+		width: 100%;
+		background-color: #000;
+	
+   
+  }
       `;
 
 function App() {
-	
-
 	return (
 		<div className="App">
+	
 			<GlobalStyle />
 			<Paths /> 
-     
+	
 		</div>
 	);
 }
