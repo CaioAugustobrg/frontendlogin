@@ -15,14 +15,25 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
+	const isEmailValid = (email) => {
+		const emailRegex = new RegExp(
+			/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/
+		);
+		if (emailRegex.test(email)) {
+			return 1;
+		}
+		return 0;
+	};
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		console.log(email, password);
 
 		if  (email == ''
+				|| !isEmailValid(email)
 				|| password == ''
 				|| password.length < 8) {
-			alert('Text an email!');
+			alert('Be sure you give a valid email and a password with more than 8 caracters!');
 			return;
 		}
 

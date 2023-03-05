@@ -10,13 +10,23 @@ const Register = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		console.log(email, password, email);
+		const isEmailValid = (email) => {
+			const emailRegex = new RegExp(
+				/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/
+			);
+			if (emailRegex.test(email)) {
+				return 1;
+			}
+			return 0;
 
+		};
 		if 	(username === ''
 				||	username.length < 3
 				||	password === ''
 				||	password.length < 8
-				||	email === '') {
-			alert('Please type a valid username!');
+				||	email === ''
+				|| !isEmailValid(email)) {
+			alert('Be sure you give a username with more than 3 caracters, a password with more than 8 caracters and a valid email!');
 			return;
 			
 		}
