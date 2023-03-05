@@ -16,10 +16,17 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 
 	const onSubmit = async (e) => {
-	
 		e.preventDefault();
-		
 		console.log(email, password);
+
+		if  (email == '') {
+			alert('Text an email!');
+			return;
+		}
+
+		if (password == '' || password.length < 8) {
+			alert('Type your password!');
+		}
 
 		try {
 			await axios.post(
@@ -39,22 +46,16 @@ const Login = () => {
 		<>
 			<GlobalStyle />
 			<Container>
-				
 				<Header>
-					
 					<h1>Welcome to ng.cash application</h1>
-				
-				
 					<span>
-								a young way to take care of your money!
-					</span>
-		
-						
+						a young way to take care of your money!
+					</span>		
 				</Header>
 		
 				<Main>
 					<form method='POST'>	
-						<Label>Write your best email</Label>
+						<Label>Write your email</Label>
 						<Input
 							type="email"
 							name="email"
@@ -73,11 +74,15 @@ const Login = () => {
 							onChange={(e) => setPassword(e.target.value)}
 							value={password}
 						></Input>		
+
 						<Button type="submit" onClick={(e) => onSubmit(e)}>
                   ENTER!
 						</Button>
+
 						<Footer>
-							<a href='/Register'>Do not have an account?</a></Footer>
+							<a href='/Register'>Do not have an account?</a>
+						</Footer>
+
 					</form>
 				</Main>
 			</Container>

@@ -11,6 +11,18 @@ const Register = () => {
 		e.preventDefault();
 		console.log(email, password, email);
 
+		if (username === '' || username.length < 3) {
+			alert('Please type a valid username!');
+		}
+
+		if (password === '' || password.length < 8) {
+			alert('Please, type a valid password!');
+		}
+
+		if (email === '') {
+			alert('Please, type a valid email!');
+		}
+
 		try {
 			await axios.post(
 				'http://localhost:3030/register',
