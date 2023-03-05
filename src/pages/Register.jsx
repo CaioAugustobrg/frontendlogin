@@ -11,18 +11,15 @@ const Register = () => {
 		e.preventDefault();
 		console.log(email, password, email);
 
-		if (username === '' || username.length < 3) {
+		if 	(username === ''
+				||	username.length < 3
+				||	password === ''
+				||	password.length < 8
+				||	email === '') {
 			alert('Please type a valid username!');
+			return;
+			
 		}
-
-		if (password === '' || password.length < 8) {
-			alert('Please, type a valid password!');
-		}
-
-		if (email === '') {
-			alert('Please, type a valid email!');
-		}
-
 		try {
 			await axios.post(
 				'http://localhost:3030/register',
@@ -30,7 +27,6 @@ const Register = () => {
 				{
 					headers: { 'Content-Type': 'application/json' },
 				}
-				
 			);
 		
 		} catch (error) {

@@ -19,13 +19,11 @@ const Login = () => {
 		e.preventDefault();
 		console.log(email, password);
 
-		if  (email == '') {
+		if  (email == ''
+				|| password == ''
+				|| password.length < 8) {
 			alert('Text an email!');
 			return;
-		}
-
-		if (password == '' || password.length < 8) {
-			alert('Type your password!');
 		}
 
 		try {
