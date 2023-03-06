@@ -1,7 +1,7 @@
 import { React ,useState } from 'react';
 import { Header, Container, Button, Input, Label, Main, Footer } from '../styles/styles.login';
 import { createGlobalStyle } from 'styled-components';
-import {Navigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
 import axios from 'axios';
@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }`;
 
 const Login = () => {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -28,9 +29,10 @@ const Login = () => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		
 		console.log(email, password);
 
-		if  (email == ''
+		if  	 (email == ''
 				|| !isEmailValid(email)
 				|| password == ''
 				|| password.length < 8) {
@@ -44,15 +46,19 @@ const Login = () => {
 				JSON.stringify({ email, password }),
 				{
 					headers: { 'Content-Type': 'application/json' },
-				}
+				},
+				navigate('/Main'),
 			);
-			<Navigate to='/Main' replace='true'></Navigate>;
+			
 		} catch (error) {
 			true,
 			console.log(error);
 			if (error.response.status === 400) {
 				alert('Invalid email or password');
+			}
+			
 		}
+	
 	};
 	return (
 		<>
@@ -88,7 +94,7 @@ const Login = () => {
 						></Input>		
 
 						<Button type="submit" onClick={(e) => onSubmit(e)}>
-                  ENTER!
+							ENTER!
 						</Button>
 
 						<Footer>
