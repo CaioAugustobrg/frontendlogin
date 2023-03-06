@@ -1,6 +1,7 @@
 import { React ,useState } from 'react';
 import { Header, Container, Button, Input, Label, Main, Footer } from '../styles/styles.login';
 import { createGlobalStyle } from 'styled-components';
+import {Navigate} from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
 import axios from 'axios';
@@ -45,10 +46,12 @@ const Login = () => {
 					headers: { 'Content-Type': 'application/json' },
 				}
 			);
-		
+			<Navigate to='/Main' replace='true'></Navigate>;
 		} catch (error) {
 			true,
 			console.log(error);
+			if (error.response.status === 400) {
+				alert('Invalid email or password');
 		}
 	};
 	return (

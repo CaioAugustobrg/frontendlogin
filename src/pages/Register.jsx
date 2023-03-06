@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import axios  from 'axios';
 import React, { useState } from 'react';
 import { Container, Header, Button, Main, Label, Input } from '../styles/styles.register';
 
@@ -9,7 +10,8 @@ const Register = () => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		console.log(email, password, email);
+		console.log(username, password, email);
+
 		const isEmailValid = (email) => {
 			const emailRegex = new RegExp(
 				/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/
@@ -26,8 +28,8 @@ const Register = () => {
 				||	password.length < 8
 				||	email === ''
 				|| !isEmailValid(email)) {
-			alert('Be sure you give a username with more than 3 caracters, a password with more than 8 caracters and a valid email!');
-			return;
+			alert('Be sure you give an username with more than 3 caracters, a password with more than 8 caracters and a valid email!');
+			return 1;
 			
 		}
 		try {
@@ -42,6 +44,11 @@ const Register = () => {
 		} catch (error) {
 			true,
 			console.log(error);
+			if (error.response.status === 406) {
+				alert('Email is already in use for another user!');
+			} else if (error.reponse.status === 400) {
+				alert('Username is already in use for another user! ');
+			}
 		}
 	};
 	return (
@@ -59,7 +66,6 @@ const Register = () => {
 
 				<Main>
 					<form method='POST'>
-					
 						<Label>Write your username</Label>
 						<Input
 							type='text'
@@ -90,8 +96,6 @@ const Register = () => {
 						></Input>
 						<Button type="submit" onClick={(e) => onSubmit(e)}>
 							REGISTER</Button>
-							
-				
 					</form>
 				</Main>
 			</Container>
