@@ -1,10 +1,11 @@
-import { React ,useState } from 'react';
+import React, { useContext, useState} from 'react';
 import { Header, Container, Button, Input, Label, Main, Footer } from '../styles/styles.login';
 import { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
 import axios from 'axios';
+import userContext from '../context/userContext';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -16,10 +17,11 @@ const Login = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const {username, setUsername} = useContext(userContext);
 
 	const isEmailValid = (email) => {
 		const emailRegex = new RegExp(
-			/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/
+			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 		);
 		if (emailRegex.test(email)) {
 			return 1;
@@ -30,30 +32,32 @@ const Login = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		
-		console.log(email, password);
+		console.log(email, password, username);
 
 		if  	 (email == ''
 				|| !isEmailValid(email)
 				|| password == ''
-				|| password.length < 8) {
-			alert('Be sure you give a valid email and a password with more than 8 caracters!');
+				|| password.length < 8
+				|| username < 3
+				|| username == '') {
+			alert('Be sure you give a valid email, a password with more than 8 caracters and a username with more than 3 caracters!');
 			return;
 		}
 
 		try {
 			await axios.post(
 				'http://localhost:3030/login',
-				JSON.stringify({ email, password }),
+				JSON.stringify({ email, password, username }),
 				{
 					headers: { 'Content-Type': 'application/json' },
 				},
-				navigate('/Main'),
+				navigate('/Transactions'),
 			);
 			
 		} catch (error) {
-			true,
+			true;
 			console.log(error);
-			if (error.response.status === 400) {
+			if (error.response.status === 404) {
 				alert('Invalid email or password');
 			}
 			
@@ -73,6 +77,15 @@ const Login = () => {
 		
 				<Main>
 					<form method='POST'>	
+						<Label>Write your username</Label>
+						<Input
+							type='text'
+							name='username'
+							required
+							placeholder='Johnny Silverhand'
+							onChange={(e) => setUsername(e.target.value)}
+							value={username}
+						></Input>
 						<Label>Write your email</Label>
 						<Input
 							type="email"
