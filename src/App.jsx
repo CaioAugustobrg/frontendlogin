@@ -1,6 +1,7 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Paths from './routes/routes';
+import userContext from '../src/context/userContext'; 
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -21,13 +22,16 @@ export const GlobalStyle = createGlobalStyle`
       `;
 
 function App() {
+	const [username, setUsername] = useState('');
 	return (
-		<div className="App">
+		<userContext.Provider value={{username, setUsername}}>
+			<div className="App">
 	
-			<GlobalStyle />
-			<Paths /> 
+				<GlobalStyle />
+				<Paths /> 
 	
-		</div>
+			</div>
+		</userContext.Provider>
 	);
 }
 

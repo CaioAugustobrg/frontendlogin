@@ -1,20 +1,23 @@
-
+import { useNavigate } from 'react-router-dom';
 import axios  from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Header, Button, Main, Label, Input } from '../styles/styles.register';
+import userContext from '../context/userContext';
 
 const Register = () => {
-	const [username, setUsername] = useState('');
+	const {username, setUsername} = useContext(userContext);
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 
 	const onSubmit = async (e) => {
+		const navigate = useNavigate();
+		
 		e.preventDefault();
 		console.log(username, password, email);
 
 		const isEmailValid = (email) => {
 			const emailRegex = new RegExp(
-				/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 			);
 			if (emailRegex.test(email)) {
 				return 1;
@@ -38,16 +41,17 @@ const Register = () => {
 				JSON.stringify({ email, password, username }),
 				{
 					headers: { 'Content-Type': 'application/json' },
-				}
+				},
+				navigate('/')
 			);
 		
 		} catch (error) {
-			true,
+			true;
 			console.log(error);
 			if (error.response.status === 406) {
-				alert('Email is already in use for another user!');
+				alert('Email is already in use by another user!');
 			} else if (error.reponse.status === 400) {
-				alert('Username is already in use for another user! ');
+				alert('Username is already in use by another user! ');
 			}
 		}
 	};
