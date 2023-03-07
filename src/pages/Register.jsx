@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import axios  from 'axios';
 import React, { useContext, useState } from 'react';
 import { Container, Header, Button, Main, Label, Input } from '../styles/styles.register';
@@ -10,7 +9,7 @@ const Register = () => {
 	const [email, setEmail] = useState('');
 
 	const onSubmit = async (e) => {
-		const navigate = useNavigate();
+	
 		
 		e.preventDefault();
 		console.log(username, password, email);
@@ -42,7 +41,7 @@ const Register = () => {
 				{
 					headers: { 'Content-Type': 'application/json' },
 				},
-				navigate('/')
+		
 			);
 		
 		} catch (error) {
