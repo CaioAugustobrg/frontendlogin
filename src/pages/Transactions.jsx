@@ -8,11 +8,10 @@ const Transactions = () => {
 	console.log(username);
 	return (
 		<>
-		
 			<Container>
 				<Header>
 					<h1>
-						Olá, {`${username}`}
+					Transactions page
 					</h1>
 					<span>
         a young way to take care of your money!
@@ -20,7 +19,8 @@ const Transactions = () => {
 				</Header>
 				<Main>
 					<Profile>
-						<h1>Teste <Icon><AiOutlineUser /></Icon></h1>
+						<h1>Olá,  {`${username}`}. <Icon><AiOutlineUser /></Icon></h1>
+						<span>Your currently balance is: </span>
 					</Profile>
 				</Main>
 			</Container>

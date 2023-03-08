@@ -15,18 +15,30 @@ flex-direction: column;
 width: 100%;
 text-align: center;
 margin: auto;
-
+span {
+  color: red;
+}
 h1 {
-  color: #f3e600;
+  color: red;
 };`;
 
 export const Profile = styled.div`
 background-color: #9400d3;
-display: row;
+display: inline;
+h1 {
+ background-color: #9400d3;
+};
+span {
+ 
+};
+ 
+
+
 
 `;
 
 export const Icon = styled.div`
+display: inline-block;
 background-color: aliceblue;
 `;
 
