@@ -17,7 +17,7 @@ const Login = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const {username, setUsername, authToken,setAuthToken} = useContext(userContext);
+	const {username, setUsername} = useContext(userContext);
 
 	const isEmailValid = (email) => {
 		const emailRegex = new RegExp(
@@ -30,39 +30,36 @@ const Login = () => {
 	};
 
 	const onSubmit = async (e) => {
-		e.preventDefault();
-		
-		console.log(email, password, username);
+		try {
+			e.preventDefault();
+			console.log(email, password, username);
 
-		if  	 (email == ''
+			if  	 (email == ''
 				|| !isEmailValid(email)
 				|| password == ''
 				|| password.length < 8
 				|| username < 3
 				|| username == '') {
-			alert('Be sure you give a valid email, a password with more than 8 caracters and a username with more than 3 caracters!');
-			return;
+				alert('Be sure you give a valid email, a password with more than 8 caracters and a username with more than 3 caracters!');
+				return;
+			}
+			await axios.post(
+				'http://localhost:3030/login',
+				JSON.stringify({ email, password, username }),
+				{ 
+					headers: { 'Content-Type': 'application/json' },
+				},
+			) .then((res) => {
+				let authToken = res.data.token;
+				console.log(authToken);
+			});
+			navigate('/Transactions');	
+		} catch (error) {
+			if (error.response.status === 404){
+				alert('Invalid username or inavalid email or invalid password!');
+			}
 		}
-
-		
-		await axios.post(
-			'http://localhost:3030/login',
-			JSON.stringify({ email, password, username }),
-			{ 
-				headers: { 'Content-Type': 'application/json' },
-			},
-			
-			
-		) .then((res) => {
-			let authToken = res.data.token;
-			console.log(authToken);
-		});
-		navigate('/Transactions');	
 	};
-			
-		
-	
-	
 	return (
 		<>
 			<GlobalStyle />
@@ -118,6 +115,6 @@ const Login = () => {
 			</Container>
 		</>
 	);
-};
 
+};
 export default Login;
