@@ -17,7 +17,7 @@ const Login = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const {username, setUsername} = useContext(userContext);
+	const {username, setUsername, setAuthToken} = useContext(userContext);
 
 	const isEmailValid = (email) => {
 		const emailRegex = new RegExp(
@@ -44,26 +44,25 @@ const Login = () => {
 			return;
 		}
 
-		try {
-			await axios.post(
-				'http://localhost:3030/login',
-				JSON.stringify({ email, password, username }),
-				{
-					headers: { 'Content-Type': 'application/json' },
-				},
-				navigate('/Transactions'),
-			);
+		
+		await axios.post(
+			'http://localhost:3030/login',
+			JSON.stringify({ email, password, username }),
+			{ 
+				headers: { 'Content-Type': 'application/json' },
+			},
 			
-		} catch (error) {
-			true;
-			console.log(error);
-			if (error.response.status === 404) {
-				alert('Invalid email or password');
-			}
 			
-		}
-	
+		) .then((res) => {
+			setAuthToken(res.data);
+			console.log(setAuthToken);
+		});
+		navigate('/Transactions');	
 	};
+			
+		
+	
+	
 	return (
 		<>
 			<GlobalStyle />
