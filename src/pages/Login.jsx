@@ -17,7 +17,7 @@ const Login = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const {username, setUsername, setAuthToken} = useContext(userContext);
+	const {username, setUsername, authToken,setAuthToken} = useContext(userContext);
 
 	const isEmailValid = (email) => {
 		const emailRegex = new RegExp(
@@ -54,8 +54,8 @@ const Login = () => {
 			
 			
 		) .then((res) => {
-			setAuthToken(res.data);
-			console.log(setAuthToken);
+			let authToken = res.data.token;
+			console.log(authToken);
 		});
 		navigate('/Transactions');	
 	};
