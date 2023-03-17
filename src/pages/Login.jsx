@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import userContext from '../context/userContext';
+import Cookies from 'universal-cookie';
+import jwt from 'jwt-decode';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -14,11 +16,13 @@ const GlobalStyle = createGlobalStyle`
   }`;
 
 const Login = () => {
+	
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const {username, setUsername} = useContext(userContext);
-
+	
+	
 	const isEmailValid = (email) => {
 		const emailRegex = new RegExp(
 			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -29,7 +33,10 @@ const Login = () => {
 		return 0;
 	};
 
-	const onSubmit = async (e) => {
+	const onSubmit = async (e, token) => {
+		const decoded = jwt(token);
+		const cookies = new Cookies();
+		console.log(decoded);
 		try {
 			e.preventDefault();
 			console.log(email, password, username);
@@ -52,6 +59,7 @@ const Login = () => {
 			) .then((res) => {
 				let authToken = res.data.token;
 				console.log(authToken);
+				cookies.set('signed_token', token);
 			});
 			navigate('/Transactions');	
 		} catch (error) {
