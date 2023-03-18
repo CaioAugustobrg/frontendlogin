@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import userContext from '../context/userContext';
-import Cookies from 'universal-cookie';
-import jwt from 'jwt-decode';
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,10 +32,8 @@ const Login = () => {
 		return 0;
 	};
 
-	const onSubmit = async (e, token) => {
-		const decoded = jwt(token);
-		const cookies = new Cookies();
-		console.log(decoded);
+	const onSubmit = async (e) => {
+	
 		try {
 			e.preventDefault();
 			console.log(email, password, username);
@@ -59,7 +56,6 @@ const Login = () => {
 			) .then((res) => {
 				let authToken = res.data.token;
 				console.log(authToken);
-				cookies.set('signed_token', token);
 			});
 			navigate('/Transactions');	
 		} catch (error) {
