@@ -4,8 +4,9 @@ import { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import styled from 'styled-components';
-import axios from 'axios';
+
 import userContext from '../context/userContext';
+import apiService from '../services/api';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -47,17 +48,13 @@ const Login = () => {
 				alert('Be sure you give a valid email, a password with more than 8 caracters and a username with more than 3 caracters!');
 				return;
 			}
-			await axios.post(
-				'http://localhost:3030/login',
-				JSON.stringify({ email, password, username }),
-				{ 
-					headers: { 'Content-Type': 'application/json' },
-				},
-			) .then((res) => {
-				let authToken = res.data.token;
-				console.log(authToken);
+			await apiService.post(
+				'/login',
+				{ email, password, username }
+			).then(() => {
+				navigate('/Transactions');	
+
 			});
-			navigate('/Transactions');	
 		} catch (error) {
 			if (error.response.status === 404){
 				alert('Invalid username or inavalid email or invalid password!');
