@@ -9,8 +9,6 @@ const Register = () => {
 	const [email, setEmail] = useState('');
 
 	const onSubmit = async (e) => {
-	
-		
 		e.preventDefault();
 		console.log(username, password, email);
 
@@ -41,7 +39,6 @@ const Register = () => {
 				{
 					headers: { 'Content-Type': 'application/json' },
 				},
-		
 			);
 		
 		} catch (error) {
@@ -56,7 +53,6 @@ const Register = () => {
 	};
 	return (
 		<>
-		
 			<Container>
 				<Header>
 					<h1>
