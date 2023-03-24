@@ -17,12 +17,11 @@ const Transactions = () => {
 	async function getAllAccounts() {
 	
 		await apiService.get('/getAllAccounts')
-			.then(req => req.json( token))
-			.then(setAccounts(accounts));
-	
+			.then(req => req.json())
+			.then(res => res.json(setAccounts(res.body)));
 	}
 		
-	console.error(accounts);
+	
 
 	
 
@@ -55,13 +54,13 @@ const Transactions = () => {
 				<Main>
 					<Profile>
 						<h1>How its going?,  {`${username}`}. <Icon><AiOutlineUser /></Icon></h1>
-						<span>Your currently balance is: </span>
-						{accounts.map(accounts => 
-							<div key={accounts.id}>
-								<h3>{accounts.userId}</h3>
-								<p>{accounts.balance}</p>
-							</div>
-						)}
+						<span>Your currently balance is:  </span>
+						{accounts.map((account => 
+							<h3 key={account.accountId}>
+								<h3>{account.userId}</h3>
+								<h3>{account.balance}</h3>
+							</h3>
+						))}
 							
 					</Profile>
 				</Main>
