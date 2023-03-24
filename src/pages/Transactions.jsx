@@ -1,4 +1,4 @@
-import {React, useContext, useEffect} from 'react';
+import {React, useContext, useEffect, useState} from 'react';
 import {AiOutlineUser} from 'react-icons/ai';
 import userContext from '../context/userContext';
 import { useCookies } from 'react-cookie';
@@ -7,6 +7,7 @@ import { Container, Header, Main, Profile, Icon } from '../styles/styles.transac
 import apiService from '../services/api';
 
 const Transactions = () => {
+	const [accounts, setAccounts] = useState([]);
 	const {username} = useContext(userContext);
 	const [cookies] = useCookies(['signed_token']);
 	const token = cookies.signed_token;
@@ -14,17 +15,16 @@ const Transactions = () => {
 	console.log(username);
 
 	async function getAllAccounts() {
-		let accounts;
-		try {
-			accounts = await apiService.get('/getAllAccounts');
-
-		} catch(error) {
-			console.error(error);
-		}
-		
-		console.error(accounts);
-
+	
+		await apiService.get('/getAllAccounts')
+			.then(req => req.json( token))
+			.then(setAccounts(accounts));
+	
 	}
+		
+	console.error(accounts);
+
+	
 
 	// 	const getAccounts = await axios.get('http://localhost:3030/getAllAccounts',
 	// 		{
@@ -56,10 +56,18 @@ const Transactions = () => {
 					<Profile>
 						<h1>How its going?,  {`${username}`}. <Icon><AiOutlineUser /></Icon></h1>
 						<span>Your currently balance is: </span>
+						{accounts.map(accounts => 
+							<div key={accounts.id}>
+								<h3>{accounts.userId}</h3>
+								<p>{accounts.balance}</p>
+							</div>
+						)}
+							
 					</Profile>
 				</Main>
 			</Container>
 		</>
 	);
+
 }; 
 export default Transactions;
