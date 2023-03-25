@@ -8,7 +8,7 @@ import apiService from '../services/api';
 
 const Transactions = () => {
 	const [accounts, setAccounts] = useState([]);
-	const {username} = useContext(userContext);
+	const username = localStorage.getItem('username');
 	const [cookies] = useCookies(['signed_token']);
 	const token = cookies.signed_token;
 	console.log(token);
@@ -21,21 +21,6 @@ const Transactions = () => {
 			
 	}
 		
-	
-
-	
-
-	// 	const getAccounts = await axios.get('http://localhost:3030/getAllAccounts',
-	// 		{
-	// 			withCredentials: true,
-	// 		}
-	// 	);
-	// 	console.log(getAccounts);
-	// } catch (error) {
-	// 	console.error(error);
-	// }
-	
-
 	useEffect(() => {
 		getAllAccounts();
 	}, []);

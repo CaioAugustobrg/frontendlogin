@@ -21,7 +21,7 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const {username, setUsername} = useContext(userContext);
-	
+	localStorage.setItem('username', username);
 	
 	const isEmailValid = (email) => {
 		const emailRegex = new RegExp(
