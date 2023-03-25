@@ -17,8 +17,8 @@ const Transactions = () => {
 	async function getAllAccounts() {
 	
 		await apiService.get('/getAllAccounts')
-			.then(req => req.json())
-			.then(res => res.json(setAccounts(res.body)));
+			.then(response => (setAccounts(response.data)));
+			
 	}
 		
 	
@@ -54,13 +54,13 @@ const Transactions = () => {
 				<Main>
 					<Profile>
 						<h1>How its going?,  {`${username}`}. <Icon><AiOutlineUser /></Icon></h1>
-						<span>Your currently balance is:  </span>
-						{accounts.map((account => 
-							<h3 key={account.accountId}>
-								<h3>{account.userId}</h3>
-								<h3>{account.balance}</h3>
-							</h3>
-						))}
+						
+						{accounts.map((account => (
+							<li key={account.accountId}>
+								<span>Your currently balance is: {account.balance} </span>
+							</li>
+						))) 
+						}
 							
 					</Profile>
 				</Main>
