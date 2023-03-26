@@ -1,6 +1,5 @@
-import {React, useContext, useEffect, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import {AiOutlineUser} from 'react-icons/ai';
-import userContext from '../context/userContext';
 import { useCookies } from 'react-cookie';
 import { Container, Header, Main, Profile, Icon } from '../styles/styles.transactions';
 
@@ -17,10 +16,9 @@ const Transactions = () => {
 	async function getAllAccounts() {
 	
 		await apiService.get('/getAllAccounts')
-			.then(response => (setAccounts(response.data)));
-			
+			.then(response => (setAccounts(response.data)));	
 	}
-		
+	
 	useEffect(() => {
 		getAllAccounts();
 	}, []);
