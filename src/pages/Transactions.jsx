@@ -7,10 +7,13 @@ import apiService from '../services/api';
 
 const Transactions = () => {
 	const [accounts, setAccounts] = useState([]);
+	const [users, setUsers] = useState([]);
 	const username = localStorage.getItem('username');
 	const [cookies] = useCookies(['signed_token']);
 	const token = cookies.signed_token;
-	console.log(token);
+	const setCookies = localStorage.setItem('keepCookie',token);
+	const getCookies = localStorage.getItem(setCookies);
+	console.log(getCookies, setCookies, token);
 	console.log(username);
 
 	async function getAllAccounts() {
@@ -18,10 +21,15 @@ const Transactions = () => {
 		await apiService.get('/getAllAccounts')
 			.then(response => (setAccounts(response.data)));	
 	}
+	async function getAllUsers() {
+		await apiService.get('/getAllAccounts')
+			.then(response => (setUsers(response.data)));
+	}
 	
 	useEffect(() => {
-		getAllAccounts();
+		getAllAccounts() && getAllUsers();
 	}, []);
+
 
 	return (
 		<>
@@ -40,10 +48,19 @@ const Transactions = () => {
 						
 						{accounts.map((account => (
 							<li key={account.accountId}>
-								<span>Your currently balance is: {account.balance} </span>
+								<span>Your currently balance is:{account.balance} </span>
+								<br></br>
+								<span>{account.userId}</span>
+								<br></br>
+								<span>{account.accountId}</span>
 							</li>
 						))) 
 						}
+						{users.map((user => (
+							<li key={user.id}>
+								<span>{user.username}</span>
+							</li>
+						)))}
 							
 					</Profile>
 				</Main>
