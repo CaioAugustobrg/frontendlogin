@@ -9,11 +9,15 @@ const Transactions = () => {
 	const [accounts, setAccounts] = useState([]);
 	const [users, setUsers] = useState([]);
 	const username = localStorage.getItem('username');
-	const [cookies] = useCookies(['signed_token']);
-	const token = cookies.signed_token;
-	const setCookies = localStorage.setItem('keepCookie',token);
-	const getCookies = localStorage.getItem(setCookies);
-	console.log(getCookies, setCookies, token);
+	const [token_cookies] = useCookies(['signed_token']);
+	const [user_id_cookies] = useCookies(['user_id']);
+	const token = token_cookies.signed_token;
+	const userId = user_id_cookies.user_id;
+	const setTokenInsideCookies = localStorage.setItem('keepToken',token);
+	const getTokenInsideCookies = localStorage.getItem(setTokenInsideCookies);
+	const setIdInsideCookies = localStorage.getItem('keepId', userId);
+	const getIdInsideCookies = localStorage.setItem(setIdInsideCookies);
+	console.log(getTokenInsideCookies, getIdInsideCookies,token, userId);
 	console.log(username);
 
 	async function getAllAccounts() {
