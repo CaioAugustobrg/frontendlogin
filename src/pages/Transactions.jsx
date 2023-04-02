@@ -2,7 +2,6 @@ import {React, useEffect, useState} from 'react';
 import {AiOutlineUser} from 'react-icons/ai';
 import { useCookies } from 'react-cookie';
 import { Container, Header, Main, Profile, Icon } from '../styles/styles.transactions';
-
 import apiService from '../services/api';
 
 const Transactions = () => {
@@ -14,12 +13,12 @@ const Transactions = () => {
 	const token = token_cookies.signed_token;
 	const userId = user_id_cookies.user_id;
 	const setIdInsideCookies = localStorage.getItem('keepId', userId);
-	const getIdInsideCookies = localStorage.setItem(setIdInsideCookies);
+	const getIdInsideCookies = localStorage.setItem('userIdInsideCookies',setIdInsideCookies);
 	console.log(getIdInsideCookies,token, userId);
 	console.log(username);
 
 	async function getAllAccounts() {
-		await apiService.get('/getAllAccounts')
+		await apiService.get(`/getAllAccounts/${userId}`)
 			.then(response => (setAccounts(response.data)));	
 	}
 	async function getAllUsers() {
@@ -30,7 +29,6 @@ const Transactions = () => {
 	useEffect(() => {
 		getAllAccounts() && getAllUsers();
 	},[]);
-
 	return (
 		<>
 			<Container>
@@ -50,9 +48,6 @@ const Transactions = () => {
 							<li key={account.accountId}>
 								<span>Your currently balance is:{account.balance} </span>
 								<br></br>
-								<span>{account.userId}</span>
-								<br></br>
-								<span>{account.accountId}</span>
 							</li>
 						))) 
 						}
