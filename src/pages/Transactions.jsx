@@ -13,11 +13,9 @@ const Transactions = () => {
 	const [user_id_cookies] = useCookies(['user_id']);
 	const token = token_cookies.signed_token;
 	const userId = user_id_cookies.user_id;
-	const setTokenInsideCookies = localStorage.setItem('keepToken',token);
-	const getTokenInsideCookies = localStorage.getItem(setTokenInsideCookies);
 	const setIdInsideCookies = localStorage.getItem('keepId', userId);
 	const getIdInsideCookies = localStorage.setItem(setIdInsideCookies);
-	console.log(getTokenInsideCookies, getIdInsideCookies,token, userId);
+	console.log(getIdInsideCookies,token, userId);
 	console.log(username);
 
 	async function getAllAccounts() {
@@ -29,11 +27,9 @@ const Transactions = () => {
 			.then(response => (setUsers(response.data)));
 	}
 	
-
 	useEffect(() => {
 		getAllAccounts() && getAllUsers();
 	},[]);
-
 
 	return (
 		<>
