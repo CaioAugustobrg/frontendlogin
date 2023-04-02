@@ -17,18 +17,18 @@ const Transactions = () => {
 	console.log(username);
 
 	async function getAllAccounts() {
-	
 		await apiService.get('/getAllAccounts')
 			.then(response => (setAccounts(response.data)));	
 	}
 	async function getAllUsers() {
-		await apiService.get('/getAllAccounts')
+		await apiService.get('/getAllUsers')
 			.then(response => (setUsers(response.data)));
 	}
 	
+
 	useEffect(() => {
 		getAllAccounts() && getAllUsers();
-	}, []);
+	},[]);
 
 
 	return (
