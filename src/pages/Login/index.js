@@ -45,7 +45,7 @@ const Login = () => {
 				|| password.length < 8
 				|| username < 3
 				|| username == '') {
-				alert('Be sure you give a valid email, a password with more than 8 caracters and a username with more than 3 caracters!');
+				alert('Be sure you give a valid email, a password with more than 8 caracters and an username with more than 3 caracters!');
 				return;
 			}
 			await apiService.post(
